@@ -40,7 +40,7 @@ class PertanyaanController extends Controller
     // SHOW
     public function show($id)
     {
-        $pertanyaan = Pertanyaan::findOrFail($id);
+        $pertanyaan = Pertanyaan::with('user')->findOrFail($id);
 
         return view('pages.pertanyaan_single', compact('pertanyaan'));
     }
@@ -48,7 +48,7 @@ class PertanyaanController extends Controller
     // EDIT
     public function edit($id)
     {
-        $pertanyaan = Pertanyaan::findOrFail($id);
+        $pertanyaan = Pertanyaan::with('user')->findOrFail($id);
 
         return view('pages.pertanyaan_edit', compact('pertanyaan'));
     }

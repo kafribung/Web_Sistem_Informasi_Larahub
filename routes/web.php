@@ -23,12 +23,15 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 });
 
 Route::group(['middleware' => 'auth'], function () {
+    // Pertanyaan
     Route::resource('pertanyaan', 'PertanyaanController')->except(['index', 'show']);
-    
+
+    // Jawaban
+    Route::get('/jawaban/{id}', 'JawabanController@create');
+    Route::post('jawaban/{id}', 'JawabanController@store');
 });
 
-
-
+// Pertanyaan
 Route::resource('pertanyaan', 'PertanyaanController')->only(['index', 'show']);
 
 Auth::routes();

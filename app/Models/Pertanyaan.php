@@ -17,6 +17,12 @@ class Pertanyaan extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    // Relation One to Many (JAWABAN)
+    public function jawabans()
+    {
+        return $this->hasMany('App\Models\Jawaban');
+    }
+
     // Author
     public function author()
     {

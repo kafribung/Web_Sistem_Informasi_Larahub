@@ -38,7 +38,7 @@
 
                     @else
                     <a href="/pertanyaan/{{$pertanyaan->id}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
-                    <a href="/pertanyaan/{{$pertanyaan->id}}/edit" class="btn btn-info btn-sm"><i class="fa fa-reply"></i></a>
+                    <a href="/jawaban/{{$pertanyaan->id}}" class="btn btn-info btn-sm"><i class="fa fa-reply"></i></a>
                 @endif
 
 
