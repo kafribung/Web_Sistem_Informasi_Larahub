@@ -16,8 +16,7 @@
         </div>
 
         @forelse ($pertanyaans as $pertanyaan)
-
-        <div class="col-sm-12">
+        <div class="col-sm-12 mb-4">
             <div class="card">
                 <div class="card-body">
                     <h5>Penanya : {{$pertanyaan->user->name}}</h5>
@@ -25,6 +24,27 @@
                         {!! $pertanyaan->description !!}
                     </div>
                 </div>
+
+                <div class="card-footer">
+                @if ($pertanyaan->author())
+                    <a href="/pertanyaan/{{$pertanyaan->id}}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                    <a href="/pertanyaan/{{$pertanyaan->id}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+
+
+                    <form  action="/pertanyaan/{{$pertanyaan->id}}" method="POST" class="d-inline-flex" >
+                        @csrf
+                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                    </form>
+
+                    @else
+                    <a href="/pertanyaan/{{$pertanyaan->id}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+                    <a href="/pertanyaan/{{$pertanyaan->id}}/edit" class="btn btn-info btn-sm"><i class="fa fa-reply"></i></a>
+                @endif
+
+
+                </div>
+
+
             </div>
         </div>
         @empty

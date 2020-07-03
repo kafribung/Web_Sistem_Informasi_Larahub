@@ -1,24 +1,25 @@
 @extends('layouts.master')
-@section('title', 'Buat Pertanyaan Forum Laravel')
+@section('title', 'Edit Pertanyaan Forum Laravel')
 @section('content')
 
 <div class="container">
     <section class="row">
         <div class="col-sm-12">
-            <div class="card border-info">
+            <div class="card border-warning">
                 <div class="card-body">
-                    <h1>Create Pertanyaan</h1>
-                    <form action="/pertanyaan" method="POST">
+                    <h1>Edit Pertanyaan</h1>
+                    <form action="/pertanyaan/{{$pertanyaan->id}}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="form-group">
                             <label for="">Pertanyaan</label>
-                            <textarea name="description" id="my-editor" class="form-control  @error('description') is-invalid @enderror" placeholder="Tulis Pertanyaan">{{old('description')}}</textarea>
+                            <textarea name="description" id="my-editor" class="form-control  @error('description') is-invalid @enderror" placeholder="Tulis Pertanyaan">{{old('description') ? old('description') : $pertanyaan->description}}</textarea>
 
                             @error('description')
                                 <p class="alert alert-danger">{{$message}}</p>
                             @enderror
                         </div>
-                        <button class="btn btn-primary btn-block btn-sm float-right">Kirim</button>
+                        <button class="btn btn-warning btn-block btn-sm float-right">Edit</button>
                     </form>
                 </div>
             </div>

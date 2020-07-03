@@ -37,48 +37,37 @@ class PertanyaanController extends Controller
         return redirect('/pertanyaan')->with('status', 'Pertanyaan Berhasil ditampilkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // SHOW
     public function show($id)
     {
-        //
+        $pertanyaan = Pertanyaan::findOrFail($id);
+
+        return view('pages.pertanyaan_single', compact('pertanyaan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // EDIT
     public function edit($id)
     {
-        //
+        $pertanyaan = Pertanyaan::findOrFail($id);
+
+        return view('pages.pertanyaan_edit', compact('pertanyaan'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    // UPDATE
+    public function update(PertanyaanRequest $request, $id)
     {
-        //
+        $data = $request->all();
+
+        Pertanyaan::findOrFail($id)->update($data);
+
+        return redirect('/pertanyaan')->with('status', 'Pertanyaan Berhasil diperbaruhi');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // DELETE
     public function destroy($id)
     {
-        //
+        Pertanyaans::destroy($id);
+
+        return redirect('/pertanyaan')->with('status', 'Pertanyaan Berhasil dihapus');
     }
 }
