@@ -3,6 +3,12 @@
 @section('content')
 
 <div class="container">
+
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
     <section class="row">
         <div class="col-sm-12">
             <h3>Forum Pertanyaan</h3>

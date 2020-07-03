@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// Import Class RequestPertanyaan
+use App\Http\Requests\PertanyaanRequest;
 
 // Import DB Pertanyaan
 use App\Models\Pertanyaan;
@@ -24,9 +26,11 @@ class PertanyaanController extends Controller
     }
 
     // STORE
-    public function store(Request $request)
+    public function store(PertanyaanRequest $request)
     {
-        
+        $data = $request->all();
+
+        $request->user()->pertanyaans()->create($data);
     }
 
     /**

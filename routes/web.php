@@ -17,8 +17,10 @@ Route::get('/', function () {
     return redirect('/pertanyaan');
 });
 
-Route::resource('pertanyaan', 'PertanyaanController');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('pertanyaan', 'PertanyaanController')->except(['index', 'show']);
+});
+
+Route::resource('pertanyaan', 'PertanyaanController')->only(['index', 'show']);
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
