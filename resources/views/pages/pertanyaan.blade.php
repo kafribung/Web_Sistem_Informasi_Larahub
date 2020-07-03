@@ -14,14 +14,29 @@
             <h3>Forum Pertanyaan</h3>
             <a href="/pertanyaan/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i></a>
         </div>
+
+        @forelse ($pertanyaans as $pertanyaan)
+
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h5>Nama</h5>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque, eius.</p>
+                    <h5>Penanya : {{$pertanyaan->user->name}}</h5>
+                    <div>
+                        {!! $pertanyaan->description !!}
+                    </div>
                 </div>
             </div>
         </div>
+        @empty
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Belum ada pertanyaan</h5>
+                </div>
+            </div>
+        </div>
+        @endforelse
+        
     </section>
 </div>
 

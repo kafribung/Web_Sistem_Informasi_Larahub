@@ -17,9 +17,17 @@ Route::get('/', function () {
     return redirect('/pertanyaan');
 });
 
+// FIle Manager
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('pertanyaan', 'PertanyaanController')->except(['index', 'show']);
+    
 });
+
+
 
 Route::resource('pertanyaan', 'PertanyaanController')->only(['index', 'show']);
 

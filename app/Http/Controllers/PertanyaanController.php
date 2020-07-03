@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 // Import Class RequestPertanyaan
 use App\Http\Requests\PertanyaanRequest;
+// Import Class STR
+use Illuminate\Support\Str;
 
 // Import DB Pertanyaan
 use App\Models\Pertanyaan;
@@ -31,6 +33,8 @@ class PertanyaanController extends Controller
         $data = $request->all();
 
         $request->user()->pertanyaans()->create($data);
+
+        return redirect('/pertanyaan')->with('status', 'Pertanyaan Berhasil ditampilkan');
     }
 
     /**

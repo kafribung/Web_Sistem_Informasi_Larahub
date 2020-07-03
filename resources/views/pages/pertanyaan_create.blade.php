@@ -11,7 +11,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="">Pertanyaan</label>
-                            <textarea name="description" id="" class="form-control ckeditor @error('description') is-invalid @enderror" placeholder="Tulis Pertanyaan">{{old('description')}}</textarea>
+                            <textarea name="description" id="my-editor" class="form-control  @error('description') is-invalid @enderror" placeholder="Tulis Pertanyaan">{{old('description')}}</textarea>
 
                             @error('description')
                                 <p class="alert alert-danger">{{$message}}</p>
@@ -26,24 +26,18 @@
 </div>
 
 @push('after_script')
-    <script src="https://cdn.ckeditor.com/ckeditor5/20.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
     <script>
-        var options = {
-          filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-          filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
-          filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-          filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
-        };
-      </script>
+    var options = {
+        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+    };
+    </script>
+
     <script>
-        ClassicEditor
-            .create( document.querySelector( '.ckeditor' ), options)
-            .then( editor => {
-                console.log( editor );
-            } )
-            .catch( error => {
-                console.error( error );
-        } );
+        CKEDITOR.replace('description', options);
     </script>
 @endpush
 @endsection
