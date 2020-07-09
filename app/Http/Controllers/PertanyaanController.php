@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 // Import DB Pertanyaan
 use App\Models\Pertanyaan;
 
+
 class PertanyaanController extends Controller
 {
     // READ
@@ -42,8 +43,9 @@ class PertanyaanController extends Controller
     // SHOW
     public function show($slug)
     {
+
         $pertanyaan = Pertanyaan::with('user', 'jawabans')->where('slug', $slug)->first();
-        // dd($pertanyaan->jawabans);
+        //  dd($pertanyaan);
        return view('pages.pertanyaan_single', compact('pertanyaan'));
     }
 

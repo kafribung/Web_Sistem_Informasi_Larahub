@@ -17,7 +17,9 @@ class CreateKomenjawabTable extends Migration
             $table->id();
             $table->bigInteger('jawaban_id')->unsigned();
             $table->text('isi')->nullable();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->foreign('jawaban_id')->references('id')->on('jawabans')->onDelete('cascade');
         });
