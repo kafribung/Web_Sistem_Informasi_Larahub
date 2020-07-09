@@ -30,7 +30,6 @@
                     <a href="/pertanyaan/{{$pertanyaan->id}}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                     <a href="/pertanyaan/{{$pertanyaan->id}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
 
-
                     <form action="/pertanyaan/{{$pertanyaan->id}}" method="POST" class="d-inline-flex">
                         @csrf
                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>

@@ -15,7 +15,10 @@ class CreatePertanyaansTable extends Migration
     {
         Schema::create('pertanyaans', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->unique();
             $table->text('description');
+            $table->string('tag');
+            $table->string('slug');
             $table->bigInteger('user_id')->unsigned();
             
             $table->timestamps();
