@@ -29,7 +29,7 @@ class Pertanyaan extends Model
         $user = Auth::check();
 
         if ($user) {
-            return Auth::user()->id == $this->user->id;
+            return Auth::user()->id == $this->user_id;
         } return false;
     }
 }

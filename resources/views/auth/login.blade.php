@@ -6,7 +6,7 @@
         <div class="wrap-login100">
             <div class="login100-form-title" style="background-image: url( {{asset('log/images/bg-01.jpg')}} );">
                 <span class="login100-form-title-1">
-                    Daftar Stack Lara
+                    Masuk Stack Lara
                 </span>
             </div>
 
@@ -48,6 +48,10 @@
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                         @endif
+                        
+                        <a class="txt1" href="/register">
+                            Register
+                        </a>
                     </div>
                 </div>
 

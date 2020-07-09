@@ -32,23 +32,30 @@ class PertanyaanController extends Controller
     {
         $data = $request->all();
 
+        $data['slug'] = Str::slug($request->title);
+
         $request->user()->pertanyaans()->create($data);
 
         return redirect('/pertanyaan')->with('status', 'Pertanyaan Berhasil ditampilkan');
     }
 
     // SHOW
-    public function show($id)
+    public function show($slug)
     {
-        $pertanyaan = Pertanyaan::with('user')->findOrFail($id);
+        $pertanyaan = Pertanyaan::with('user')->where('slug', $slug)->first();
 
         return view('pages.pertanyaan_single', compact('pertanyaan'));
     }
 
     // EDIT
-    public function edit($id)
+    public function edit($slug)
     {
-        $pertanyaan = Pertanyaan::with('user')->findOrFail($id);
+        $pertanyaan = Pertanyaan::with('user')->where('slug', $slug)->first();
+
+        // Seleksi jika bukan ownernya
+        if (!$pertanyaan->author()) {
+            return redirect('/pertanyaan')->with('status', 'Anda tidak memiliki akses');
+        }
 
         return view('pages.pertanyaan_edit', compact('pertanyaan'));
     }
@@ -58,9 +65,11 @@ class PertanyaanController extends Controller
     {
         $data = $request->all();
 
+        $data['slug'] = Str::slug($request->title);
+
         Pertanyaan::findOrFail($id)->update($data);
 
-        return redirect('/pertanyaan')->with('status', 'Pertanyaan Berhasil diperbaruhi');
+        return redirect('/pertanyaan')->with('status', 'Pertanyaan Berhasil diupdate');
     }
 
     // DELETE

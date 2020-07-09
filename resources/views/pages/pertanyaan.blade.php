@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Forum Laravel')
+@section('title', 'Forum Tanya Jawab Stack Laravel')
 @section('content')
 
 <div class="container">
@@ -19,25 +19,23 @@
         <div class="col-sm-12 mb-4">
             <div class="card">
                 <div class="card-body">
-                    <h5>Penanya : {{$pertanyaan->user->name}}</h5>
+                    <h6>Penanya : {{$pertanyaan->user->name}}</h6>
+                    <h4><a href="/pertanyaan/{{$pertanyaan->slug}}">{{ $pertanyaan->title }}</a></h4>
                     <div>
-                        {!! $pertanyaan->description !!}
+                        {!! Str::limit( $pertanyaan->description, 200, '...') !!}
                     </div>
+                    <P class="badge badge-info">{{ $pertanyaan->tag }}</P>
                 </div>
 
                 <div class="card-footer">
                     @if ($pertanyaan->author())
-                    <a href="/pertanyaan/{{$pertanyaan->id}}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                    <a href="/pertanyaan/{{$pertanyaan->id}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
+                    <a href="/pertanyaan/{{$pertanyaan->slug}}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 
                     <form action="/pertanyaan/{{$pertanyaan->id}}" method="POST" class="d-inline-flex">
                         @csrf
+                        @method('DELETE')
                         <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                     </form>
-
-                    @else
-                    <a href="/pertanyaan/{{$pertanyaan->id}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
-                    <a href="/jawaban/{{$pertanyaan->id}}" class="btn btn-info btn-sm"><i class="fa fa-reply"></i></a>
                     @endif
 
 

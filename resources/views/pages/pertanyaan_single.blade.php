@@ -25,7 +25,6 @@
 
                 <div class="card-footer">
                     <i>Ditanyakan tgl : {{$pertanyaan->created_at->format('d-m-Y : h:i:sa')}}</i>
-                    
                 </div>
             </div>
         </div>

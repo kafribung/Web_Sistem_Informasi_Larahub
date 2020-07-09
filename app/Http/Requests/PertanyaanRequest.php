@@ -24,7 +24,9 @@ class PertanyaanRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => ['required']
+            'title'             => ['required', 'string', 'min:5', 'max:200', 'unique:pertanyaans' ],
+            'description' => ['required'],
+            'tag'              => ['required', 'string', 'min:3', 'max:100'],
         ];
     }
 }
