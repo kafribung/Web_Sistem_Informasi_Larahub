@@ -31,7 +31,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('jawaban/{id}/edit', 'JawabanController@edit');
     Route::put('jawaban/{id}', 'JawabanController@update');
     Route::delete('jawaban/{id}', 'JawabanController@destory');
+
+    // JawabanKomentar
+    // TINGGAL DITAMBHAKN BG WKWK
+
 });
+
 
 // Pertanyaan
 Route::resource('pertanyaan', 'PertanyaanController')->only(['index', 'show']);

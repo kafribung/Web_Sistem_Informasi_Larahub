@@ -23,7 +23,7 @@ class Jawaban extends Model
     }
 
      // Relation One to Many (Komentar Jawaban)
-     public function komentars()
+     public function komen_jawabs()
      {
          return $this->hasMany('App\Models\KomenJawab');
      }
@@ -34,7 +34,7 @@ class Jawaban extends Model
         $user = Auth::check();
 
         if ($user) {
-            return Auth::user()->id == $this->user_id;
+            return Auth::user()->id == $this->user->id;
         } return false;
     }
 }

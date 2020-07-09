@@ -43,54 +43,64 @@
                     <div>
                         {!! $jawaban->description !!}
                     </div>
+
                     {{-- komentar --}}
                     <div id="accordion">
-                        <div class="card border-dark">
+                        <div class="card border-dark bg-info">
                             <div class="card-header" class="collapsed card-link" data-toggle="collapse" href="#listjawab-{{$jawaban->id}}">
                               Terdapat 3 Komentar
                             </a>
                             </div>
                             <div id="listjawab-{{$jawaban->id}}" class="collapse" data-parent="#accordion">
+
+                                {{-- Looping Komentar Jawaban --}}
+                                @foreach ($jawaban->komen_jawabs as $komen)
                                 <div class="card-body">
                                     <div class="col-sm-12" >
                                         <div class="card border-dark">
                                             <div class="card-body">
-                                                <h5>Komentar dari : {{$jawaban->user->name}}</h5>
+                                                <h6>Komentar dari : {{$komen->user->name}}</h6>
                                                 <div class="row">
                                                     <div class="col-sm-12">
-                                                        I also created Configuration (explaining config via TreeBuilder) and Extension files inside DepedencyInjection repository of the bundle.
+                                                       {!! $komen->description !!}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                @if (!$jawaban->author())
-                                    <div class="card-body">
-                                        <div class="col-sm-12 mb-3">    
-                                            <div class="card border-info">
-                                                <div class="card-body">
-                                                    <h4>Beri Komentar</h4>
-                                                    <form action="/jawaban/{{$pertanyaan->id}}" method="POST">
-                                                        @csrf
-                                                        <div class="form-group">
-                                                            <textarea name="description" id="my-editor" class="form-control  @error('description') is-invalid @enderror" placeholder="Tulis Pertanyaan">{{old('description')}}</textarea>
-                                                            @error('description')
-                                                                <p class="alert alert-danger">{{$message}}</p>
-                                                            @enderror
-                                                        </div>
-                                                        <button class="btn btn-primary btn-block btn-sm float-right">Jawab</button>
-                                                    </form>
+                                @endforeach
+                                {{-- Batas Looping Komentar Jawaban --}}
+
+
+                                {{-- Create Komentar Perrtanyaan --}}
+                                <div class="col-sm-12 mb-3">
+                                    <div class="card border-info">
+                                        <div class="card-body">
+                                            <h6>Komen Jawaban</h6>
+                                            <form action="/komentar/{{ $jawaban->id }}" method="POST">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <textarea name="description" id="my-editor" class="form-control  @error('description') is-invalid @enderror" placeholder="Tulis Komentar">{{old('description')}}</textarea>
+
+                                                    @error('description')
+                                                        <p class="alert alert-danger">{{$message}}</p>
+                                                    @enderror
                                                 </div>
-                                            </div>
+                                                <button class="btn btn-primary btn-block btn-sm float-right">Komen</button>
+                                            </form>
                                         </div>
                                     </div>
-                                @endif
+                                </div>
+                                {{-- Batas Create Komentar Perrtanyaan --}}
+
                             </div>
                         </div>
                     </div>
+
+                    {{-- Owner Edit Delete Jawabn --}}
                     @if ($jawaban->author())
-                    <div class="card-body">
+                    <div class="card-footer">
                         <button><a href="/jawaban/{{ $jawaban->id  }}/edit">Edit</a></button>
 
                         <form action="/jawaban/{{ $jawaban->id  }}" method="POST" class="d-inline-flex" >
@@ -100,18 +110,21 @@
                         </form>
                     </div>
                     @endif
+                    {{-- Btas Owner Edit Delete Jawabn --}}
+
                 </div>
             </div>
-        @empty
-        <div class="card border-info mb-3">
-            <div class="card-footer">
-                <h5>Belum ada jawaban</h5>
+
+            @empty
+            <div class="card border-info mb-3">
+                <div class="card-footer">
+                    <h5>Belum ada jawaban</h5>
+                </div>
             </div>
-        </div>
-        @endforelse
+            @endforelse
         </div>
 
-         {{-- Create Pertayaan --}}
+         {{-- Create Jawbabn --}}
         <div class="col-sm-12 mb-3">
             @if (!$pertanyaan->author())
             <div class="card border-info">
@@ -120,8 +133,7 @@
                     <form action="/jawaban/{{$pertanyaan->id}}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <label for="">Jawaban</label>
-                            <textarea name="description" id="my-editor" class="form-control  @error('description') is-invalid @enderror" placeholder="Tulis Pertanyaan">{{old('description')}}</textarea>
+                            <textarea name="description"  class="form-control  ckeditor @error('description') is-invalid @enderror" placeholder="Tulis Pertanyaan">{{old('description')}}</textarea>
 
                             @error('description')
                                 <p class="alert alert-danger">{{$message}}</p>
@@ -132,6 +144,8 @@
                 </div>
             </div>
         </div>
+         {{-- END Create Jawbabn --}}
+
         @endif
     </section>
 </div>
@@ -148,7 +162,7 @@
     </script>
 
     <script>
-        CKEDITOR.replace('description', options);
+        CKEDITOR.replace('.ckeditor', options);
     </script>
 @endpush
 

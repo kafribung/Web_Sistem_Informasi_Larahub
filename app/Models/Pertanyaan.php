@@ -23,6 +23,8 @@ class Pertanyaan extends Model
         return $this->hasMany('App\Models\Jawaban');
     }
 
+    
+
     // Author
     public function author()
     {

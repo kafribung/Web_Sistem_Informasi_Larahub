@@ -1,5 +1,5 @@
 @extends('auth.master_auth')
-@section('title', 'Register Stack Lara')
+@section('title')
 @section('content')
 
 <div class="limiter">
@@ -7,7 +7,7 @@
         <div class="wrap-login100">
             <div class="login100-form-title" style="background-image: url( {{asset('log/images/bg-01.jpg')}} );">
                 <span class="login100-form-title-1">
-                    Daftar Stack Lara
+                    Regis Admin Dekranasda Sulses
                 </span>
             </div>
 

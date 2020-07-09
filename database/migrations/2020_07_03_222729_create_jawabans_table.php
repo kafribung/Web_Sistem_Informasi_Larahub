@@ -18,6 +18,7 @@ class CreateJawabansTable extends Migration
             $table->text('description');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('pertanyaan_id')->unsigned();
+            $table->tinyInteger('vote')->nullable()->unsigned();
             
             $table->timestamps();
 
