@@ -48,4 +48,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Jawaban');
     }
+
+    // Relation One to Many (JAWABAN)
+    public function komentars()
+    {
+        return $this->hasMany('App\Models\KomenJawab');
+    }
 }

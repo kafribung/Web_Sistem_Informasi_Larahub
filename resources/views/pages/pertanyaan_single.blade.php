@@ -43,9 +43,54 @@
                     <div>
                         {!! $jawaban->description !!}
                     </div>
-
+                    {{-- komentar --}}
+                    <div id="accordion">
+                        <div class="card border-dark">
+                            <div class="card-header" class="collapsed card-link" data-toggle="collapse" href="#listjawab-{{$jawaban->id}}">
+                              Terdapat 3 Komentar
+                            </a>
+                            </div>
+                            <div id="listjawab-{{$jawaban->id}}" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="col-sm-12" >
+                                        <div class="card border-dark">
+                                            <div class="card-body">
+                                                <h5>Komentar dari : {{$jawaban->user->name}}</h5>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        I also created Configuration (explaining config via TreeBuilder) and Extension files inside DepedencyInjection repository of the bundle.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (!$jawaban->author())
+                                    <div class="card-body">
+                                        <div class="col-sm-12 mb-3">    
+                                            <div class="card border-info">
+                                                <div class="card-body">
+                                                    <h4>Beri Komentar</h4>
+                                                    <form action="/jawaban/{{$pertanyaan->id}}" method="POST">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <textarea name="description" id="my-editor" class="form-control  @error('description') is-invalid @enderror" placeholder="Tulis Pertanyaan">{{old('description')}}</textarea>
+                                                            @error('description')
+                                                                <p class="alert alert-danger">{{$message}}</p>
+                                                            @enderror
+                                                        </div>
+                                                        <button class="btn btn-primary btn-block btn-sm float-right">Jawab</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                     @if ($jawaban->author())
-                    <div>
+                    <div class="card-body">
                         <button><a href="/jawaban/{{ $jawaban->id  }}/edit">Edit</a></button>
 
                         <form action="/jawaban/{{ $jawaban->id  }}" method="POST" class="d-inline-flex" >

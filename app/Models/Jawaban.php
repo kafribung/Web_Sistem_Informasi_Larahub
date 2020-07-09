@@ -22,6 +22,12 @@ class Jawaban extends Model
         return $this->belongsTo('App\Models\Pertanyaan');
     }
 
+     // Relation One to Many (Komentar Jawaban)
+     public function komentars()
+     {
+         return $this->hasMany('App\Models\KomenJawab');
+     }
+
     // Author
     public function author()
     {
