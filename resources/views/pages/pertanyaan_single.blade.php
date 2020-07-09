@@ -28,6 +28,26 @@
             </div>
         </div>
 
+        {{-- Semua Jawaban --}}
+        <div class="col-sm-12">
+            @forelse ($pertanyaan->jawabans as $jawaban)
+            <div class="card border-info mb-3">
+                <div class="card-footer">
+                    <h5>Jawaban : {{$jawaban->user->name}}</h5>
+                    <div>
+                        {!! $jawaban->description !!}
+                    </div>
+                </div>
+            </div>
+        @empty
+        <div class="card border-info mb-3">
+            <div class="card-footer">
+                <h5>Belum ada jawaban</h5>
+            </div>
+        </div>
+        @endforelse
+        </div>
+
          {{-- Create Pertayaan --}}
         <div class="col-sm-12 mb-3">
             @if (!$pertanyaan->author())
@@ -52,25 +72,7 @@
         @endif
 
 
-        {{-- Semua Jawaban --}}
-        <div class="col-sm-12">
-            @forelse ($pertanyaan->jawabans as $jawaban)
-            <div class="card border-info mb-3">
-                <div class="card-footer">
-                    <h5>Jawaban : {{$jawaban->user->name}}</h5>
-                    <div>
-                        {!! $jawaban->description !!}
-                    </div>
-                </div>
-            </div>
-        @empty
-        <div class="card border-info mb-3">
-            <div class="card-footer">
-                <h5>Belum ada jawaban</h5>
-            </div>
-        </div>
-        @endforelse
-        </div>
+        
         
     </section>
 </div>

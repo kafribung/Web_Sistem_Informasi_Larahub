@@ -27,7 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('pertanyaan', 'PertanyaanController')->except(['index', 'show']);
 
     // Jawaban
-    Route::get('/jawaban/{id}', 'JawabanController@create');
     Route::post('jawaban/{id}', 'JawabanController@store');
 });
 

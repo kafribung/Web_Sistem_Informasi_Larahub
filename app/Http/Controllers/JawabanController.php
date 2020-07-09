@@ -10,13 +10,6 @@ use App\Models\Pertanyaan;
 
 class JawabanController extends Controller
 {
-    public function create($id)
-    {
-        $pertanyaan = Pertanyaan::with('user')->findOrFail($id);
-
-        return view('pages.jawaban_create', compact('pertanyaan'));
-    }
-
     public function store(Request $request, $id)
     {
         $data =  $request->validate([

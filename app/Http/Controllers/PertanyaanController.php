@@ -42,7 +42,7 @@ class PertanyaanController extends Controller
     // SHOW
     public function show($slug)
     {
-        $pertanyaan = Pertanyaan::with('user')->where('slug', $slug)->first();
+        $pertanyaan = Pertanyaan::with('user', 'jawabans')->where('slug', $slug)->first();
 
         return view('pages.pertanyaan_single', compact('pertanyaan'));
     }
