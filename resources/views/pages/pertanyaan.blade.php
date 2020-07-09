@@ -38,10 +38,7 @@
                     </form>
                     @endif
 
-
                 </div>
-
-
             </div>
         </div>
         @empty

@@ -51,7 +51,7 @@
                         <form action="/jawaban/{{ $jawaban->id  }}" method="POST" class="d-inline-flex" >
                             @csrf
                             @method('DELETE')
-                               <button type="submit">Delete</button> 
+                               <button type="submit" onclick="return confirm('Hapus Data ?')">Delete</button> 
                         </form>
                     </div>
                     @endif
