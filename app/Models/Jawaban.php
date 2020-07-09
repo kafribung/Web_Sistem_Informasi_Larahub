@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Jawaban extends Model
 {
-    protected $touches = ['user'];
-    protected $fillable= ['description', 'pertanyaan_id'];
+    protected $touches = ['user', 'pertanyaan'];
+    protected $guarded= ['created_at', 'updated_at'];
 
     // Relation Many to One  (USER)
     public function user()
@@ -19,5 +20,15 @@ class Jawaban extends Model
     public function pertanyaan()
     {
         return $this->belongsTo('App\Models\Pertanyaan');
+    }
+
+    // Author
+    public function author()
+    {
+        $user = Auth::check();
+
+        if ($user) {
+            return Auth::user()->id == $this->user_id;
+        } return false;
     }
 }

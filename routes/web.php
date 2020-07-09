@@ -28,6 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Jawaban
     Route::post('jawaban/{id}', 'JawabanController@store');
+    Route::get('jawaban/{id}/edit', 'JawabanController@edit');
+    Route::put('jawaban/{id}', 'JawabanController@update');
+    Route::delete('jawaban/{id}', 'JawabanController@destory');
 });
 
 // Pertanyaan

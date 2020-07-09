@@ -4,6 +4,12 @@
 
 <div class="container">
 
+    @if (session('status'))
+    <p class="alert alert-success" role="alert">
+        {{ session('status') }}
+    </p>
+    @endif
+
     <section class="row">
         <div class="col-sm-12 mt-4 mb-3 text-center">
             <h3>Forum Pertanyaan<span class="badge badge-dark">Stack Lara</span></h3>
@@ -37,6 +43,18 @@
                     <div>
                         {!! $jawaban->description !!}
                     </div>
+
+                    @if ($jawaban->author())
+                    <div>
+                        <button><a href="/jawaban/{{ $jawaban->id  }}/edit">Edit</a></button>
+
+                        <form action="/jawaban/{{ $jawaban->id  }}" method="POST" class="d-inline-flex" >
+                            @csrf
+                            @method('DELETE')
+                               <button type="submit">Delete</button> 
+                        </form>
+                    </div>
+                    @endif
                 </div>
             </div>
         @empty
@@ -70,10 +88,6 @@
             </div>
         </div>
         @endif
-
-
-        
-        
     </section>
 </div>
 

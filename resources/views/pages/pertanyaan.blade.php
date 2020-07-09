@@ -5,9 +5,9 @@
 <div class="container">
 
     @if (session('status'))
-    <div class="alert alert-success" role="alert">
+    <p class="alert alert-success" role="alert">
         {{ session('status') }}
-    </div>
+    </p>
     @endif
     <section class="row">
         <div class="col-sm-12 mt-4 mb-3 text-center">
