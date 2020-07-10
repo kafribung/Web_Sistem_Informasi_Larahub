@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJawabansTable extends Migration
+class CreateKomenJawabsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateJawabansTable extends Migration
      */
     public function up()
     {
-        Schema::create('jawabans', function (Blueprint $table) {
+        Schema::create('komen_jawabs', function (Blueprint $table) {
             $table->id();
             $table->text('description');
+            $table->bigInteger('jawaban_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('pertanyaan_id')->unsigned();
-            $table->tinyInteger('vote')->nullable()->unsigned();
-            
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans')->onDelete('cascade');
+            $table->foreign('jawaban_id')->references('id')->on('jawabans')->onDelete('cascade');
         });
     }
 
@@ -34,6 +32,6 @@ class CreateJawabansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jawabans');
+        Schema::dropIfExists('komen_jawabs');
     }
 }

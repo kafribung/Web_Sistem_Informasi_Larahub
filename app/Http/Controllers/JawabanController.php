@@ -58,4 +58,7 @@ class JawabanController extends Controller
         return redirect('/pertanyaan/'. $jawaban->pertanyaan->slug)->with('status', 'Jawaban berhasil dihapus');
     }
 
+
+    
+
 }

@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 // Import DB Pertanyaan
 use App\Models\Pertanyaan;
 
+use App\Models\Jawaban;
+
 
 class PertanyaanController extends Controller
 {
@@ -44,9 +46,10 @@ class PertanyaanController extends Controller
     public function show($slug)
     {
 
-        $pertanyaan = Pertanyaan::with('user', 'jawabans')->where('slug', $slug)->first();
-        //  dd($pertanyaan);
-       return view('pages.pertanyaan_single', compact('pertanyaan'));
+        $pertanyaan = Pertanyaan::with('user', 'jawabans', 'komen_tanyas')->where('slug', $slug)->first();
+      //dd($pertanyaan);
+        return view('pages.pertanyaan_single', compact('pertanyaan'));
+      
     }
 
     // EDIT

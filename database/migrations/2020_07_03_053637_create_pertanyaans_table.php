@@ -19,6 +19,7 @@ class CreatePertanyaansTable extends Migration
             $table->text('description');
             $table->string('tag');
             $table->string('slug');
+            $table->tinyInteger('vote')->nullable()->unsigned();
             $table->bigInteger('user_id')->unsigned();
             
             $table->timestamps();

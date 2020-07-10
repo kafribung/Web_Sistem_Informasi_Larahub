@@ -23,6 +23,14 @@ class Pertanyaan extends Model
         return $this->hasMany('App\Models\Jawaban');
     }
 
+    // Relation One to Many (JAWABAN)
+    public function komen_tanyas()
+    {
+        return $this->hasMany('App\Models\KomenTanya');
+    }
+
+    
+
     // Author
     public function author()
     {

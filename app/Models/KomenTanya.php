@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 
-class Jawaban extends Model
+class KomenTanya extends Model
 {
     protected $touches = ['user', 'pertanyaan'];
     protected $guarded= ['created_at', 'updated_at'];
@@ -21,20 +21,14 @@ class Jawaban extends Model
     {
         return $this->belongsTo('App\Models\Pertanyaan');
     }
-
-     // Relation One to Many (Komentar Jawaban)
-     public function komen_jawabs()
+    
+     // Author
+     public function author()
      {
-         return $this->hasMany('App\Models\KomenJawab');
+         $user = Auth::check();
+ 
+         if ($user) {
+             return Auth::user()->id == $this->user_id;
+         } return false;
      }
-
-    // Author
-    public function author()
-    {
-        $user = Auth::check();
-
-        if ($user) {
-            return Auth::user()->id == $this->user->id;
-        } return false;
-    }
 }

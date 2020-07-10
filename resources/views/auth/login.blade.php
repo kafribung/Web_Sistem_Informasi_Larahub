@@ -1,12 +1,12 @@
 @extends('auth.master_auth')
-@section('title', 'Login Stack Lara')
+@section('title')
 @section('content')
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
             <div class="login100-form-title" style="background-image: url( {{asset('log/images/bg-01.jpg')}} );">
                 <span class="login100-form-title-1">
-                    Masuk Stack Lara
+                    Login Admin Dekranasda Sulsel
                 </span>
             </div>
 
@@ -48,10 +48,6 @@
                                     {{ __('Forgot Your Password?') }}
                                 </a>
                         @endif
-                        
-                        <a class="txt1" href="/register">
-                            Register
-                        </a>
                     </div>
                 </div>
 

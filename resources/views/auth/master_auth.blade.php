@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="shortcut icon" href="{{ asset('img/favicon.svg') }}">
+    <link rel="shortcut icon" href="{{ asset('dash/images/favicon.png') }}">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('log/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!--===============================================================================================-->

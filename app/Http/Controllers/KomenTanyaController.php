@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Jawaban;
-use App\Models\KomenJawab;
+// Import DB KomenTanya
+use App\Models\KomenTanya;
+// Import DB Pertanyaan
+use App\Models\Pertanyaan;
 
-class KomenJawabController extends Controller
+class KomenTanyaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,15 +36,15 @@ class KomenJawabController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id, $slug)
+    public function store(Request $request, $id)
     {
-        $jawaban = Jawaban::findOrFail($id);
+        $pertanyaan = Pertanyaan::findOrFail($id);
         $data =  $request->validate([
             'description' => ['required'],
         ]);
-        $data['jawaban_id'] = $id;
-        $request->user()->komen_jawabs()->create($data);
-        return redirect('/pertanyaan/'. $slug)->with('status', 'Komentar berhasil ditambahkan');
+        $data['pertanyaan_id'] = $id;
+        $request->user()->komen_tanyas()->create($data);
+        return redirect('/pertanyaan/'. $pertanyaan->slug)->with('status', 'Komentar berhasil ditambahkan');
     }
 
     /**
@@ -76,11 +78,11 @@ class KomenJawabController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $komenJawab = KomenJawab::findOrFail($id);
+        $komenTanya = KomenTanya::findOrFail($id);
         $data = $request->validate([
             'description' => ['required'],
         ]);
-        KomenJawab::findOrFail($id)->update($data);
+        KomenTanya::findOrFail($id)->update($data);
         return json_encode(array(
             "obj"=>$data,
             "statusCode"=>200,
@@ -96,9 +98,10 @@ class KomenJawabController extends Controller
      */
     public function destroy($id)
     {
-        $komenkawab = KomenJawab::findOrFail($id);
-        KomenJawab::findOrFail($id)->delete();
+        $komentanya = KomenTanya::findOrFail($id);
 
-        return redirect('/pertanyaan/'. $komenkawab->jawaban->pertanyaan->slug)->with('status', 'Komentar berhasil dihapus');
+        KomenTanya::findOrFail($id)->delete();
+
+        return redirect('/pertanyaan/'. $komentanya->pertanyaan->slug)->with('status', 'Komentar berhasil dihapus');
     }
 }

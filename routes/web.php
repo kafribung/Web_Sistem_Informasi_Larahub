@@ -31,7 +31,23 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('jawaban/{id}/edit', 'JawabanController@edit');
     Route::put('jawaban/{id}', 'JawabanController@update');
     Route::delete('jawaban/{id}', 'JawabanController@destory');
+
+    
+    // JawabanKomentar
+    // TINGGAL DITAMBHAKN BG WKWK
+    Route::post('komenjawab/{id}/{slug}', 'KomenJawabController@store');
+    Route::delete('komenjawab/{id}', 'KomenJawabController@destroy');
+    Route::put('komenjawab/{id}', 'KomenJawabController@update');
+
+    Route::post('komentanya/{id}', 'KomenTanyaController@store');
+    Route::delete('komentanya/{id}', 'KomenTanyaController@destroy');
+    Route::put('komentanya/{id}', 'KomenTanyaController@update');
+    
+    Route::get('profil', 'ProfilController@index');
+    Route::put('profil/{id}', 'ProfilController@update');
+
 });
+
 
 // Pertanyaan
 Route::resource('pertanyaan', 'PertanyaanController')->only(['index', 'show']);

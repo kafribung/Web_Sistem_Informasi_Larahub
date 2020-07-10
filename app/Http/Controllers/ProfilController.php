@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Jawaban;
-use App\Models\KomenJawab;
-
-class KomenJawabController extends Controller
+use App\Models\Profil;
+use App\Models\User;
+use Auth;
+class ProfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class KomenJawabController extends Controller
      */
     public function index()
     {
-        //
+        $profil = User::find(Auth::user()->id)->profil;
+        return view('pages.profil', compact('profil'));
     }
 
     /**
@@ -34,15 +35,9 @@ class KomenJawabController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id, $slug)
+    public function store(Request $request)
     {
-        $jawaban = Jawaban::findOrFail($id);
-        $data =  $request->validate([
-            'description' => ['required'],
-        ]);
-        $data['jawaban_id'] = $id;
-        $request->user()->komen_jawabs()->create($data);
-        return redirect('/pertanyaan/'. $slug)->with('status', 'Komentar berhasil ditambahkan');
+        
     }
 
     /**
@@ -76,16 +71,11 @@ class KomenJawabController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $komenJawab = KomenJawab::findOrFail($id);
-        $data = $request->validate([
-            'description' => ['required'],
-        ]);
-        KomenJawab::findOrFail($id)->update($data);
-        return json_encode(array(
-            "obj"=>$data,
-            "statusCode"=>200,
-            "msg"=>"Data Berhasil di simpan"
-        ));
+        $data['fullname'] = $request['fullname'];
+        $data['address'] = $request['address'];
+       
+        Profil::findOrFail($id)->update($data); 
+        return redirect('profil')->with('status', 'Profil berhasil dirubah');;
     }
 
     /**
@@ -96,9 +86,6 @@ class KomenJawabController extends Controller
      */
     public function destroy($id)
     {
-        $komenkawab = KomenJawab::findOrFail($id);
-        KomenJawab::findOrFail($id)->delete();
-
-        return redirect('/pertanyaan/'. $komenkawab->jawaban->pertanyaan->slug)->with('status', 'Komentar berhasil dihapus');
+        //
     }
 }
