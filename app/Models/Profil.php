@@ -9,10 +9,10 @@ class Profil extends Model
 {
     protected $touches = ['user'];
     protected $table = 'profil';
-    protected $fillable = [
-        'user_id', 'fullname', 'address'
+    protected $guarded = [
+        'created_at', 'updated_at'
     ];
-    
+
     // Relation One to One  (USER)
     public function user()
     {

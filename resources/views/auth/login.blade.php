@@ -49,6 +49,10 @@
                                 </a>
                         @endif
                     </div>
+                    <br>
+                    <a class="txt1" href="{{ route('register') }}">
+                        {{ __('Register') }}
+                    </a>
                 </div>
 
                 <div class="container-login100-form-btn">
