@@ -29,6 +29,10 @@
                     <label for="address">Alamat</label>
                     <textarea class="form-control" rows="3" id="address" name="address" >{{$profil->address}}</textarea>
                 </div>
+                <div class="form-group">
+                    <label for="reputasi">Reputasi</label>
+                    <input type="text" class="form-control" id="reputasi" name="reputasi" placeholder="0" value="{{$profil->reputasi}}" readonly>
+                </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">

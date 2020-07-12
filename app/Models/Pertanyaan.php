@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class Pertanyaan extends Model
@@ -16,6 +16,19 @@ class Pertanyaan extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+
+
+    // public function vote()
+    // {
+    //     $query2 = 'select sum(nilai) as hasil from vote_tanya where pertanyaan_id = ;
+    //     $result = DB::select($query2);
+    //     $nilai = 0;
+    //     foreach ($result as $hasil) {
+    //         $nilai = $hasil->hasil;
+    //     }
+    //     return $nilai;
+    // }
 
     // Relation One to Many (JAWABAN)
     public function jawabans()

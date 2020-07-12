@@ -25,12 +25,15 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 Route::group(['middleware' => 'auth'], function () {
     // Pertanyaan
     Route::resource('pertanyaan', 'PertanyaanController')->except(['index', 'show']);
+    Route::post('votetanya/{id}', 'PertanyaanController@vote');
+
 
     // Jawaban
     Route::post('jawaban/{id}', 'JawabanController@store');
     Route::get('jawaban/{id}/edit', 'JawabanController@edit');
     Route::put('jawaban/{id}', 'JawabanController@update');
     Route::delete('jawaban/{id}', 'JawabanController@destory');
+    Route::post('votejawab/{id}', 'JawabanController@vote');
 
     
     // JawabanKomentar

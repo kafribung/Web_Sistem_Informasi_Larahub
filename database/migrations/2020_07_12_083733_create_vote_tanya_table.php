@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfilTable extends Migration
+class CreateVoteTanyaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateProfilTable extends Migration
      */
     public function up()
     {
-        Schema::create('profil', function (Blueprint $table) {
+        Schema::create('vote_tanya', function (Blueprint $table) {
             $table->id();
+
+            $table->bigInteger('pertanyaan_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('fullname')->nullable();
-            $table->string('address')->nullable();
-            $table->integer('reputasi')->default(0);
-            $table->timestamps();
+
+            $table->integer('nilai');
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans')->onDelete('cascade');
         });
     }
 
@@ -31,6 +33,6 @@ class CreateProfilTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profil');
+        Schema::dropIfExists('vote_tanya');
     }
 }

@@ -96,7 +96,12 @@
 
 
                 <div class="card-footer">
-                    <i>Ditanyakan tgl : {{$pertanyaan->created_at->format('d-m-Y : h:i:sa')}}</i>
+                    
+                    <button type="button" onclick="SetvoteTanya({{ $pertanyaan->id }}, 1)" class="btn btn-primary btn-sm" ><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                    <label id="votetanya-{{ $pertanyaan->id }}">0</label>
+                    <button type="button" onclick="SetvoteTanya({{ $pertanyaan->id }}, -1)" class="btn btn-primary btn-sm" ><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
+                    
+                    <i class="float-right p-1">Ditanyakan tgl : {{$pertanyaan->created_at->format('d-m-Y : h:i:sa')}}</i>
                 </div>
             </div>
         </div>
@@ -104,110 +109,95 @@
         {{-- Semua Jawaban --}}
         <div class="col-sm-12">
             @forelse ($pertanyaan->jawabans as $jawaban)
-            <div class="row" style="margin-bottom: 1%">
-                <div class="col-md-1" style="margin-right: 0%; margin-left: 0%">
-                    <div class="card border-info h-100" >
-                        <button type="button" class="btn btn-primary" onclick="SetvoteJawab({{ $jawaban->id  }}, 1)">A</button>
-                        <div class="card-body">1</div>
-                        <button type="button" class="btn btn-primary" onclick="SetvoteJawab({{ $jawaban->id  }}, -1)">B</button>    
+            <div class="card border-info mb-3">
+                <div class="card-footer">
+                    <h5>Jawaban : {{$jawaban->user->name}}</h5>
+                    <div>
+                        {!! $jawaban->description !!}
                     </div>
-                </div>
-                <div class="col-md-11">
-                    <div class="card border-info mb-3 h-100">
-                        <div class="card-footer">
-                            <h5>Jawaban : {{$jawaban->user->name}}</h5>
-                            <div>
-                                {!! $jawaban->description !!}
+                    {{-- komentar --}}
+                    <div id="accordion">
+                        <div class="card border-dark bg-info">
+                            <div class="card-header" class="collapsed card-link" data-toggle="collapse" href="#listjawab-{{$jawaban->id}}">
+                              Komentar
+                            </a>
                             </div>
-                            {{-- komentar --}}
-                            <div id="accordion">
-                                <div class="card border-dark bg-info">
-                                    <div class="card-header" class="collapsed card-link" data-toggle="collapse" href="#listjawab-{{$jawaban->id}}">
-                                      Komentar
-                                    </a>
-                                    </div>
-                                    <div id="listjawab-{{$jawaban->id}}" class="collapse" data-parent="#accordion">
-        
-                                        {{-- Looping Komentar Jawaban --}}
-                                        @foreach ($jawaban->komen_jawabs as $komen)
-                                        <div class="card-body">
-                                            <div class="col-sm-12" >
-                                                <div class="card border-dark">
-                                                    <div class="card-body">
-                                                        <h6>Komentar dari : <label id="komenjawabuser-{{$komen->id}}"> {{$komen->user->name}}</label></h6>
-                                                        <div class="row">
-                                                            <div class="col-sm-12">
-                                                               <label id="komenjawabdesc-{{$komen->id}}" >{!! $komen->description !!}</label>
-                                                            </div>
-                                                        </div>
+                            <div id="listjawab-{{$jawaban->id}}" class="collapse" data-parent="#accordion">
+                                {{-- Looping Komentar Jawaban --}}
+                                @foreach ($jawaban->komen_jawabs as $komen)
+                                <div class="card-body">
+                                    <div class="col-sm-12" >
+                                        <div class="card border-dark">
+                                            <div class="card-body">
+                                                <h6>Komentar dari : <label id="komenjawabuser-{{$komen->id}}"> {{$komen->user->name}}</label></h6>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                       <label id="komenjawabdesc-{{$komen->id}}" >{!! $komen->description !!}</label>
                                                     </div>
                                                 </div>
-                                                {{-- Owner Edit Delete Komen --}}
-                                                @if ($komen->author())
-                                                <div class="card-footer">
-                                                    {{-- <button><a href="/komenjawab/{{ $komen->id  }}/edit">Edit</a></button> --}}
-                                                    <button type="submit" class="btn btn-primary btn-sm" onclick="geteditkomenjawab({{ $komen->id  }})">Edit</button> 
-                                                    <form action="/komenjawab/{{ $komen->id  }}" method="POST" class="d-inline-flex" >
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus Data ?')">Delete</button> 
-                                                    </form>
-                                                </div>
-                                                @endif
-                                                {{-- Btas Owner Edit Delete Jawabn --}}
-                                            </div>
-                                            
-                                        </div>
-                                        @endforeach
-                                        {{-- Batas Looping Komentar Jawaban --}}
-        
-        
-                                        {{-- Create Komentar Perrtanyaan --}}
-                                        <div class="col-sm-12 mb-3">
-                                            <div class="card border-info">
-                                                <div class="card-body">
-                                                    <h6>Komen Jawaban</h6>
-                                                    <form action="/komenjawab/{{ $jawaban->id }}/{{ $pertanyaan->slug }}" method="POST">
-                                                        @csrf
-                                                        <div class="form-group">
-                                                            <textarea name="description" id="my-editor" class="form-control  @error('description') is-invalid @enderror" placeholder="Tulis Komentar">{{old('description')}}</textarea>
-                                                            @error('description')
-                                                                <p class="alert alert-danger">{{$message}}</p>
-                                                            @enderror
-                                                        </div>
-                                                        <button class="btn btn-primary btn-block btn-sm float-right">Komen</button>
-                                                    </form>
-                                                </div>
                                             </div>
                                         </div>
-                                        {{-- Batas Create Komentar Perrtanyaan --}}
-        
+                                        {{-- Owner Edit Delete Komen --}}
+                                        @if ($komen->author())
+                                        <div class="card-footer">
+                                            {{-- <button><a href="/komenjawab/{{ $komen->id  }}/edit">Edit</a></button> --}}
+                                            <button type="submit" class="btn btn-primary btn-sm" onclick="geteditkomenjawab({{ $komen->id  }})">Edit</button> 
+                                            <form action="/komenjawab/{{ $komen->id  }}" method="POST" class="d-inline-flex" >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus Data ?')">Delete</button> 
+                                            </form>
+                                        </div>
+                                        @endif
+                                        {{-- Btas Owner Edit Delete Jawabn --}}
+                                    </div>
+                                    
+                                </div>
+                                @endforeach
+                                {{-- Batas Looping Komentar Jawaban --}}
+
+
+                                {{-- Create Komentar Perrtanyaan --}}
+                                <div class="col-sm-12 mb-3">
+                                    <div class="card border-info">
+                                        <div class="card-body">
+                                            <h6>Komen Jawaban</h6>
+                                            <form action="/komenjawab/{{ $jawaban->id }}/{{ $pertanyaan->slug }}" method="POST">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <textarea name="description" id="my-editor" class="form-control  @error('description') is-invalid @enderror" placeholder="Tulis Komentar">{{old('description')}}</textarea>
+                                                    @error('description')
+                                                        <p class="alert alert-danger">{{$message}}</p>
+                                                    @enderror
+                                                </div>
+                                                <button class="btn btn-primary btn-block btn-sm float-right">Komen</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+                                {{-- Batas Create Komentar Perrtanyaan --}}
+
                             </div>
-        
-                            {{-- Owner Edit Delete Jawabn --}}
-                            @if ($jawaban->author())
-                            <div class="card-footer">
-                                <button><a href="/jawaban/{{ $jawaban->id  }}/edit">Edit</a></button>
-        
-                                <form action="/jawaban/{{ $jawaban->id  }}" method="POST" class="d-inline-flex" >
-                                    @csrf
-                                    @method('DELETE')
-                                       <button type="submit" onclick="return confirm('Hapus Data ?')">Delete</button> 
-                                </form>
-                            </div>
-                            @endif
-                            {{-- Btas Owner Edit Delete Jawabn --}}
-        
                         </div>
                     </div>
+
+                    {{-- Owner Edit Delete Jawabn --}}
+                    @if ($jawaban->author())
+                    <div class="card-footer">
+                        <button type="button" onclick="SetvoteJawab({{ $jawaban->id }}, 1)" class="btn btn-primary btn-sm" ><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                        <label id="votejawab-{{ $jawaban->id }}">0</label>
+                        <button type="button" onclick="SetvoteJawab({{ $jawaban->id }}, -1)" class="btn btn-primary btn-sm" ><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
+                        <button><a href="/jawaban/{{ $jawaban->id  }}/edit">Edit</a></button>
+                        <form action="/jawaban/{{ $jawaban->id  }}" method="POST" class="d-inline-flex" >
+                            @csrf
+                            @method('DELETE')
+                               <button type="submit" onclick="return confirm('Hapus Data ?')">Delete</button> 
+                        </form>
+                    </div>
+                    @endif
+                    {{-- Btas Owner Edit Delete Jawabn --}}
                 </div>
             </div>
-
-
-            
-
             @empty
             <div class="card border-info mb-3">
                 <div class="card-footer">
@@ -397,6 +387,53 @@
  
             $("#komenjawabdiag").modal('show');
          };
+
+         function SetvoteJawab(id, val){
+            $.ajax({
+                url: "/votejawab/"+id,
+                type: "POST",
+                dataType: 'json',
+                data:{ 
+                    _token:'{{ csrf_token() }}',
+                    nilai : val,
+                },
+                cache: false,
+                success: function(dataResult){
+                    console.log(dataResult);
+                    var resultData = dataResult.data;
+                    if(dataResult.statusCode==200){
+                        alert(dataResult.msg);
+                        $("#votejawab-"+id).text(dataResult.nilai);
+                    }else{
+                        alert("Error occured !");
+                    }
+                }
+            });
+         }
+
+
+         function SetvoteTanya(id, val){
+            $.ajax({
+                url: "/votetanya/"+id,
+                type: "POST",
+                dataType: 'json',
+                data:{ 
+                    _token:'{{ csrf_token() }}',
+                    nilai : val,
+                },
+                cache: false,
+                success: function(dataResult){
+                    console.log(dataResult);
+                    var resultData = dataResult.data;
+                    if(dataResult.statusCode==200){
+                        alert(dataResult.msg);
+                        $("#votetanya-"+id).text(dataResult.nilai);
+                    }else{
+                        alert("Error occured !");
+                    }
+                }
+            });
+         }
     </script>
 @endpush
 

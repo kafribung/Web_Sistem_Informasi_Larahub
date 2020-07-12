@@ -28,6 +28,9 @@
                 </div>
 
                 <div class="card-footer">
+                    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button>
+                    0
+                    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
                     @if ($pertanyaan->author())
                     <a href="/pertanyaan/{{$pertanyaan->slug}}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 
